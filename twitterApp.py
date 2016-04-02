@@ -1,7 +1,9 @@
 import wx
+from twitter import *
 
 class twitterGui(wx.Frame):
 	
+	t = 0
 	#main constructor function to build main frame
 	def __init__(self,parent,id):
 		wx.Frame.__init__(self,parent,id,'Twitter Interace', size=(600,800))
@@ -14,9 +16,17 @@ class twitterGui(wx.Frame):
 		self.Bind(wx.EVT_CLOSE, self.closeWindow)
 		self.Bind(wx.EVT_BUTTON, self.clearButtonMethod, clearButton)
 
+		#create access token/consumer key
+		access_token = '65962166-2yYXHTmH7X0vXy5sh1hDp2RlXfbcu959VhdHnjGWh'
+		access_token_secret = 'QI9zsM0vRwtvTq455k4xkEbbcH2cvpHlalOj187kNN4wo'
+		consumer_key = 'DkPQfFHhPadZyNqvvqyoXSV1p'
+		consumer_secret = 'QPDDdc6fCP0ApGVPdtl7UOxfIxIbcLQSjiObX2gvsEmtv5d6i8'
+		global t
+		t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+
 	def tweetButtonMethod(self,event):
 		#tweet code here
-		self.Close(True)
+		t.statuses.update(status="---- python app posted tweet success ----")
 
 	def clearButtonMethod(self,event):
 		self.Close(True)
